@@ -6,7 +6,6 @@ export const dynamicParams = true;
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getData } from "../../../lib/api";
-
 export default function VehicleDetailsPage() {
   const params = useSearchParams();
   const id = params.get("id");

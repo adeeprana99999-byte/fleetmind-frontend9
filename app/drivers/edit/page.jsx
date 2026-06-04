@@ -3,7 +3,6 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
 export const dynamicParams = true;
-
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getData, putData } from "../../../lib/api";
