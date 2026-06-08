@@ -5,9 +5,7 @@ export const fetchCache = "force-no-store";
 export const revalidate = 0;
 
 import { useEffect, useState } from "react";
-import { getData, postData } from "../../lib/api";
-import { API } from "../../lib/api";   // ADD THIS
-
+import { API, getData, postData } from "../../lib/api";
 
 export default function DriversPage() {
   const [drivers, setDrivers] = useState([]);
@@ -43,7 +41,6 @@ export default function DriversPage() {
         const u = d.userId || {};
         return (
           u.name?.toLowerCase().includes(s) ||
-         // u.email?.toLowerCase().includes(s) ||
           u.phone?.toLowerCase().includes(s) ||
           d.licenseNumber?.toLowerCase().includes(s)
         );
@@ -52,30 +49,28 @@ export default function DriversPage() {
   }, [search, drivers]);
 
   const editDriver = (id) => {
-  
-  window.location.href = `/drivers/edit?id=${id}`;
-};
+    window.location.href = `/drivers/edit?id=${id}`;
+  };
 
-const deleteDriver = async (id) => {
-  if (!confirm("Are you sure you want to delete this driver?")) return;
+  const deleteDriver = async (id) => {
+    if (!confirm("Are you sure you want to delete this driver?")) return;
 
-  const res = await fetch(`${API}/drivers/${id}`, {
+    const res = await fetch(`${API}/drivers/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    });
 
-    method: "DELETE",
-    headers: {
-      Authorization: `Bearer ${localStorage.getItem("token")}`,
-    },
-  });
+    const data = await res.json();
 
-  const data = await res.json();
-
-  if (res.ok) {
-    alert("Driver deleted");
-    window.location.reload();
-  } else {
-    alert(data.message || "Delete failed");
-  }
-};
+    if (res.ok) {
+      alert("Driver deleted");
+      window.location.reload();
+    } else {
+      alert(data.message || "Delete failed");
+    }
+  };
 
   // Save new driver
   const saveDriver = async () => {
@@ -172,20 +167,19 @@ const deleteDriver = async (id) => {
                   </td>
 
                   <td className="p-3 flex gap-2">
-                   <button
-                    onClick={() => editDriver(d._id)}
-                    className="bg-blue-600 text-white px-3 py-1 rounded"
-                  >
-                    Edit
-                  </button>
+                    <button
+                      onClick={() => editDriver(d._id)}
+                      className="bg-blue-600 text-white px-3 py-1 rounded"
+                    >
+                      Edit
+                    </button>
 
-                  <button
-                    onClick={() => deleteDriver(d._id)}
-                    className="bg-red-600 text-white px-3 py-1 rounded"
-                  >
-                    Delete
-                  </button>
-
+                    <button
+                      onClick={() => deleteDriver(d._id)}
+                      className="bg-red-600 text-white px-3 py-1 rounded"
+                    >
+                      Delete
+                    </button>
                   </td>
                 </tr>
               );
@@ -205,12 +199,6 @@ const deleteDriver = async (id) => {
               placeholder="Name"
               onChange={(e) => setName(e.target.value)}
             />
-
-           {/*  <input
-              className="w-full border p-2 mb-3"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            /> */}
 
             <input
               className="w-full border p-2 mb-3"
