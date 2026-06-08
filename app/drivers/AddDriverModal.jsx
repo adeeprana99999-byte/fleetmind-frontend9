@@ -56,17 +56,11 @@ export default function AddDriverModal({
         />
 
         <div className="flex justify-end gap-2">
-          <button
-            onClick={onClose}
-            className="px-4 py-2 border rounded"
-          >
+          <button onClick={onClose} className="px-4 py-2 border rounded">
             Cancel
           </button>
 
-          <button
-            onClick={onSave}
-            className="px-4 py-2 bg-blue-600 text-white rounded"
-          >
+          <button onClick={onSave} className="px-4 py-2 bg-blue-600 text-white rounded">
             Save
           </button>
         </div>
