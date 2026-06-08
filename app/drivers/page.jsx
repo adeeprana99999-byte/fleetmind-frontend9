@@ -74,7 +74,7 @@ export default function DriversPage() {
 
   // Save new driver
   const saveDriver = async () => {
-    await postData("api/drivers", {
+    await postData("drivers", {
 
       name,
       phone,
