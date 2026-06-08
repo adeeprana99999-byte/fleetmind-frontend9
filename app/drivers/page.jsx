@@ -114,6 +114,8 @@ export default function DriversPage() {
             className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
           >
             + Add Driver
+            <h2 className="text-xl font-bold mb-4">Add Driver (NEW)</h2>
+
           </button>
         </div>
       </div>
