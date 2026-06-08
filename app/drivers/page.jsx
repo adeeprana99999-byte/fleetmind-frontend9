@@ -114,8 +114,6 @@ export default function DriversPage() {
             className="bg-blue-600 text-white px-4 py-2 rounded-lg shadow hover:bg-blue-700"
           >
             + Add Driver
-            <h2 className="text-xl font-bold mb-4">Add Driver (NEW)</h2>
-
           </button>
         </div>
       </div>
@@ -196,39 +194,45 @@ export default function DriversPage() {
           <div className="bg-white p-6 rounded shadow w-96">
             <h2 className="text-xl font-bold mb-4">Add Driver</h2>
 
-            <input
-              className="w-full border p-2 mb-3"
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-            />
+            <div className="flex flex-col gap-3">
+              <input
+                className="w-full border p-2"
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
 
-            <input
-              className="w-full border p-2 mb-3"
-              placeholder="Phone"
-              onChange={(e) => setPhone(e.target.value)}
-            />
+              <input
+                className="w-full border p-2"
+                placeholder="Phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
 
-            <input
-              className="w-full border p-2 mb-3"
-              placeholder="License Number"
-              onChange={(e) => setLicenseNumber(e.target.value)}
-            />
+              <input
+                className="w-full border p-2"
+                placeholder="License Number"
+                value={licenseNumber}
+                onChange={(e) => setLicenseNumber(e.target.value)}
+              />
 
-            <input
-              className="w-full border p-2 mb-3"
-              type="date"
-              placeholder="License Expiry"
-              onChange={(e) => setLicenseExpiry(e.target.value)}
-            />
+              <input
+                className="w-full border p-2"
+                type="date"
+                value={licenseExpiry}
+                onChange={(e) => setLicenseExpiry(e.target.value)}
+              />
 
-            <input
-              className="w-full border p-2 mb-3"
-              type="password"
-              placeholder="Password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+              <input
+                className="w-full border p-2"
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
+            </div>
 
-            <div className="flex justify-end gap-2">
+            <div className="flex justify-end gap-2 mt-4">
               <button
                 onClick={() => setShowAdd(false)}
                 className="px-4 py-2 border rounded"
