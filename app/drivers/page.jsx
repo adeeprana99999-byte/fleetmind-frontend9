@@ -57,7 +57,8 @@ export default function DriversPage() {
 const deleteDriver = async (id) => {
   if (!confirm("Are you sure you want to delete this driver?")) return;
 
-  const res = await fetch(`http://localhost:5000/api/drivers/${id}`, {
+  const res = await fetch(`${API}/drivers/${id}`, {
+
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,
