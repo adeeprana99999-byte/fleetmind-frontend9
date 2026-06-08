@@ -189,67 +189,82 @@ export default function DriversPage() {
       </div>
 
       {/* Add Driver Modal */}
-      {showAdd && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
-          <div className="bg-white p-6 rounded shadow w-96">
-            <h2 className="text-xl font-bold mb-4">Add Driver</h2>
+   {/* Add Driver Modal */}
+{showAdd && (
+  <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+    <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <h2 className="text-xl font-bold mb-4">Add Driver</h2>
 
-            <div className="flex flex-col gap-3">
-              <input
-                className="w-full border p-2"
-                placeholder="Name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
+      <div className="flex flex-col gap-4">
 
-              <input
-                className="w-full border p-2"
-                placeholder="Phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-              />
-
-              <input
-                className="w-full border p-2"
-                placeholder="License Number"
-                value={licenseNumber}
-                onChange={(e) => setLicenseNumber(e.target.value)}
-              />
-
-              <input
-                className="w-full border p-2"
-                type="date"
-                value={licenseExpiry}
-                onChange={(e) => setLicenseExpiry(e.target.value)}
-              />
-
-              <input
-                className="w-full border p-2"
-                type="password"
-                placeholder="Password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-
-            <div className="flex justify-end gap-2 mt-4">
-              <button
-                onClick={() => setShowAdd(false)}
-                className="px-4 py-2 border rounded"
-              >
-                Cancel
-              </button>
-
-              <button
-                onClick={saveDriver}
-                className="px-4 py-2 bg-blue-600 text-white rounded"
-              >
-                Save
-              </button>
-            </div>
-          </div>
+        <div>
+          <label className="block text-sm font-medium mb-1">Name</label>
+          <input
+            className="w-full border p-2 rounded"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
         </div>
-      )}
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Phone</label>
+          <input
+            className="w-full border p-2 rounded"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">License Number</label>
+          <input
+            className="w-full border p-2 rounded"
+            value={licenseNumber}
+            onChange={(e) => setLicenseNumber(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">License Expiry</label>
+          <input
+            type="date"
+            className="w-full border p-2 rounded"
+            value={licenseExpiry}
+            onChange={(e) => setLicenseExpiry(e.target.value)}
+          />
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Password</label>
+          <input
+            type="password"
+            className="w-full border p-2 rounded"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+
+      </div>
+
+      <div className="flex justify-end gap-3 mt-6">
+        <button
+          onClick={() => setShowAdd(false)}
+          className="px-4 py-2 border rounded"
+        >
+          Cancel
+        </button>
+
+        <button
+          onClick={saveDriver}
+          className="px-4 py-2 bg-blue-600 text-white rounded"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
