@@ -255,12 +255,14 @@ export default function DriversPage() {
           Cancel
         </button>
 
-        <button
-          onClick={saveDriver}
-          className="px-4 py-2 bg-blue-600 text-white rounded"
-        >
-          Save
-        </button>
+       <button
+  type="button"
+  onClick={saveDriver}
+  className="px-4 py-2 bg-blue-600 text-white rounded"
+>
+  Save
+</button>
+
       </div>
     </div>
   </div>
