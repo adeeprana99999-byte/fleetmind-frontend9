@@ -74,18 +74,22 @@ export default function DriversPage() {
 
   // Save new driver
   const saveDriver = async () => {
-    await postData("drivers", {
+  console.log("SAVE DRIVER CLICKED");
 
-      name,
-      phone,
-      licenseNumber,
-      licenseExpiry,
-      password,
-    });
+  const res = await postData("drivers", {
+    name,
+    phone,
+    licenseNumber,
+    licenseExpiry,
+    password,
+  });
 
-    setShowAdd(false);
-    window.location.reload();
-  };
+  console.log("ADD DRIVER RESPONSE:", res);
+
+  setShowAdd(false);
+  window.location.reload();
+};
+
 
   if (loading) {
     return (
