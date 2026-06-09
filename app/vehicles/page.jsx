@@ -161,11 +161,10 @@ export default function VehiclesPage() {
               className="w-full border p-2 mb-3"
               onChange={(e) => setSelectedDriver(e.target.value)}
             >
-              <option value="">Select Driver</option>
-              {drivers.map((d) => (
-                <option key={d._id} value={d._id}>
-                  {d.userId?.name}
+              <option key={d._id} value={d.userId?._id}>
+               {d.userId?.name}
                 </option>
+
               ))}
             </select>
 
