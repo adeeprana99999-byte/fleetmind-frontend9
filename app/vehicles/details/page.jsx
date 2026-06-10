@@ -29,7 +29,12 @@ export default function VehicleDetailsPage() {
       setExpenses(exp);
       setIncome(inc);
 
-      setTotalExpenses(exp.reduce((s, e) => s + Number(e.amount), 0));
+     setTotalExpenses(
+  exp
+    .filter(e => e.status !== "Rejected")   // ⭐ ignore rejected
+    .reduce((s, e) => s + Number(e.amount || 0), 0)
+);
+
       setTotalIncome(inc.reduce((s, i) => s + Number(i.amount), 0));
     });
   }, [id]);
