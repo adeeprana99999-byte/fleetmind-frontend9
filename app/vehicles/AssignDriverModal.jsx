@@ -31,9 +31,10 @@ export default function AssignDriverModal({ close, vehicle, drivers }) {
         >
           <option value="">Select Driver</option>
           {drivers.map((d) => (
-            <option key={d._id} value={d.userId?._id}>
-              {d.userId?.name}
-            </option>
+            <option key={d.id} value={d.userId?._id}>
+  {d.userId?.name}
+</option>
+
           ))}
         </select>
 
