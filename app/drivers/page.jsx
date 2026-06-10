@@ -85,9 +85,6 @@ export default function DriversPage() {
 }
 
   // Save new driver
-  const saveDriver = async () => {
-  console.log("SAVE DRIVER CLICKED");
-
  const saveDriver = async () => {
   console.log("SAVE DRIVER CLICKED");
 
@@ -120,6 +117,7 @@ export default function DriversPage() {
   setShowAdd(false);
   window.location.reload();
 };
+
 
   return (
     <div>
