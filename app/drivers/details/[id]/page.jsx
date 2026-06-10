@@ -12,6 +12,7 @@ export default function DriverDetailsPage() {
     if (!id) return;
 
     getData(`drivers/${id}`).then((res) => {
+      console.log("DRIVER DETAILS:", res);
       setDriver(res);
     });
   }, [id]);
@@ -31,47 +32,60 @@ export default function DriverDetailsPage() {
 
       <h1 className="text-2xl font-bold mb-4">Driver Details</h1>
 
+      {/* BASIC INFO */}
       <div className="space-y-3">
-        <p><strong>Name:</strong> {u.name}</p>
-        <p><strong>Phone:</strong> {u.phone}</p>
-        <p><strong>License Number:</strong> {driver.licenseNumber}</p>
-        <p><strong>License Expiry:</strong> 
-          {driver.licenseExpiry ? new Date(driver.licenseExpiry).toLocaleDateString() : "—"}
+        <p><strong>Name:</strong> {u.name || "—"}</p>
+        <p><strong>Phone:</strong> {u.phone || "—"}</p>
+        <p><strong>License Number:</strong> {driver.licenseNumber || "—"}</p>
+
+        <p>
+          <strong>License Expiry:</strong>{" "}
+          {driver.licenseExpiry
+            ? new Date(driver.licenseExpiry).toLocaleDateString()
+            : "—"}
         </p>
 
-        <p><strong>Assigned Vehicle:</strong> 
+        <p>
+          <strong>Assigned Vehicle:</strong>{" "}
           {u.assignedVehicle ? u.assignedVehicle.vehicleNumber : "Unassigned"}
         </p>
       </div>
 
-      {/* License Photo */}
-      {driver.licensePhoto && (
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">License Photo</h2>
+      {/* LICENSE PHOTO */}
+      <div className="mt-6">
+        <h2 className="text-xl font-semibold mb-2">License Photo</h2>
+
+        {driver.licensePhoto ? (
           <img
             src={driver.licensePhoto}
-            className="w-48 rounded border"
-            alt="Driver License"
+            alt="License Photo"
+            className="w-48 h-auto rounded border object-contain bg-gray-100 p-2"
           />
-        </div>
-      )}
+        ) : (
+          <p className="text-gray-500">No license photo uploaded.</p>
+        )}
+      </div>
 
-      {/* Documents */}
-      {driver.documents?.length > 0 && (
-        <div className="mt-6">
-          <h2 className="text-xl font-semibold mb-2">Documents</h2>
-          {driver.documents.map((doc, i) => (
+      {/* DOCUMENTS */}
+      <div className="mt-6">
+        <h2 className="text-xl font-semibold mb-2">Documents</h2>
+
+        {driver.documents && driver.documents.length > 0 ? (
+          driver.documents.map((doc, i) => (
             <a
               key={i}
               href={doc}
               target="_blank"
-              className="text-blue-600 underline block mt-1"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline block mt-1 cursor-pointer z-50 relative"
             >
               View Document {i + 1}
             </a>
-          ))}
-        </div>
-      )}
+          ))
+        ) : (
+          <p className="text-gray-500">No documents uploaded.</p>
+        )}
+      </div>
     </div>
   );
 }
