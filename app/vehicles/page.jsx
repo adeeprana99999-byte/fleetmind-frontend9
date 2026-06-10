@@ -82,6 +82,7 @@ export default function VehiclesPage() {
             <th className="p-3 text-left">Vehicle #</th>
             <th className="p-3 text-left">Make</th>
             <th className="p-3 text-left">Model</th>
+            <th className="p-3 text-left">Mileage</th>
             <th className="p-3 text-left">Driver</th>
             <th className="p-3 text-left">Actions</th>
           </tr>
@@ -107,6 +108,8 @@ export default function VehiclesPage() {
 
               <td className="p-3">{v.make}</td>
               <td className="p-3">{v.model}</td>
+              <td className="p-3">{v.mileage || 0}</td>
+
 
               <td className="p-3">
                 {v.assignedDriver?.name || "Unassigned"}
