@@ -1,9 +1,9 @@
 import "./globals.css";
 
-export default function RootLayout({ children }) {
+export default function LoginLayout({ children }) {
   return (
     <html lang="en">
-      <body className="bg-gray-100">
+      <body className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-600 to-indigo-700 p-4">
         {children}
       </body>
     </html>
