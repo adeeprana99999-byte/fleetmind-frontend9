@@ -1,13 +1,19 @@
 "use client";
 
 import { useState } from "react";
-import { postData } from "../../lib/api";
+import { putData } from "../../lib/api";
 
 export default function AssignDriverModal({ close, vehicle, drivers }) {
   const [driverId, setDriverId] = useState("");
 
   const save = async () => {
-    await postData(`vehicles/${vehicle._id}/assign`, { driverId });
+    if (!driverId) {
+      alert("Please select a driver");
+      return;
+    }
+
+    await putData(`vehicles/${vehicle._id}/assign-driver`, { driverId });
+
     close();
     window.location.reload();
   };
@@ -25,8 +31,8 @@ export default function AssignDriverModal({ close, vehicle, drivers }) {
         >
           <option value="">Select Driver</option>
           {drivers.map((d) => (
-            <option key={d._id} value={d._id}>
-              {d.name}
+            <option key={d._id} value={d.userId?._id}>
+              {d.userId?.name}
             </option>
           ))}
         </select>
