@@ -52,16 +52,21 @@ export default function ExpensesPage() {
   }, []);
 
   // ⭐ UPDATE STATUS (Approve / Reject)
-  const updateStatus = async (id, status) => {
-    await postData(`expenses/${id}/status`, { status });
+  // ⭐ UPDATE STATUS (Approve / Reject)
+const updateStatus = async (id, status) => {
+  try {
+    const updated = await putData(`expenses/${id}/status`, { status });
 
-    // Update UI instantly
     setExpenses((prev) =>
       prev.map((exp) =>
-        exp._id === id ? { ...exp, status } : exp
+        exp._id === id ? { ...exp, status: updated.status } : exp
       )
     );
-  };
+  } catch (err) {
+    console.error("Status update failed:", err);
+  }
+};
+
 
   const saveExpense = async () => {
     if (!vehicleId) {
