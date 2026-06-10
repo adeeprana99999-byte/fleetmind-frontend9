@@ -73,7 +73,7 @@ export default function DriversPage() {
   async function uploadFile(file) {
   const form = new FormData();
   form.append("file", file);
-  form.append("upload_preset", "fleetmind"); // create this in Cloudinary
+  form.append("upload_preset", "fleetmind");
 
   const res = await fetch(
     "https://api.cloudinary.com/v1_1/dpekjdygn/image/upload",
@@ -83,6 +83,7 @@ export default function DriversPage() {
   const data = await res.json();
   return data.secure_url;
 }
+
 
   // Save new driver
  const saveDriver = async () => {
