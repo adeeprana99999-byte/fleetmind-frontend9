@@ -156,13 +156,7 @@ export default function DriversPage() {
               <th className="p-3 text-left font-semibold">License #</th>
               <th className="p-3 text-left font-semibold">License Expiry</th>
               <th className="p-3 text-left font-semibold">Actions</th>
-              <button
-  onClick={() => window.location.href = `/drivers/details/${d._id}`}
-  className="bg-gray-600 text-white px-3 py-1 rounded"
->
-  View
-</button>
-
+           
             </tr>
           </thead>
 
@@ -199,22 +193,30 @@ export default function DriversPage() {
                       ? new Date(d.licenseExpiry).toLocaleDateString()
                       : "—"}
                   </td>
+                   <td className="p-3 flex gap-2">
+  <button
+    onClick={() => window.location.href = `/drivers/details/${d._id}`}
+    className="bg-gray-600 text-white px-3 py-1 rounded"
+  >
+    View
+  </button>
 
-                  <td className="p-3 flex gap-2">
-                    <button
-                      onClick={() => editDriver(d._id)}
-                      className="bg-blue-600 text-white px-3 py-1 rounded"
-                    >
-                      Edit
-                    </button>
+  <button
+    onClick={() => editDriver(d._id)}
+    className="bg-blue-600 text-white px-3 py-1 rounded"
+  >
+    Edit
+  </button>
 
-                    <button
-                      onClick={() => deleteDriver(d._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded"
-                    >
-                      Delete
-                    </button>
-                  </td>
+  <button
+    onClick={() => deleteDriver(d._id)}
+    className="bg-red-600 text-white px-3 py-1 rounded"
+  >
+    Delete
+  </button>
+</td>
+
+                  
                 </tr>
               );
             })}
