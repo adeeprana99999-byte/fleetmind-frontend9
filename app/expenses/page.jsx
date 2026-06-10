@@ -45,9 +45,9 @@ export default function ExpensesPage() {
       getData("vehicles"),
       getData("drivers")
     ]).then(([exp, veh, drv]) => {
-      setExpenses(exp);
-      setVehicles(veh);
-      setDrivers(drv);
+      setExpenses(Array.isArray(exp) ? exp : []);
+      setVehicles(Array.isArray(veh) ? veh : []);
+      setDrivers(Array.isArray(drv) ? drv : []);
     });
   }, []);
 
@@ -76,7 +76,7 @@ export default function ExpensesPage() {
 
     const total = expenses
       .filter((e) => e.vehicleId?._id === vehicle._id)
-      .reduce((sum, e) => sum + Number(e.amount), 0);
+      .reduce((sum, e) => sum + Number(e.amount || 0), 0);
 
     setVehicleTotal(total);
     setShowVehicleModal(true);
@@ -111,6 +111,7 @@ export default function ExpensesPage() {
         <tbody>
           {expenses.map((e) => (
             <tr key={e._id} className="border-b hover:bg-gray-50">
+              {/* VEHICLE */}
               <td className="p-3">
                 <span
                   className="text-blue-600 underline cursor-pointer"
@@ -120,20 +121,25 @@ export default function ExpensesPage() {
                 </span>
               </td>
 
+              {/* DRIVER */}
               <td className="p-3">
                 {e.driverId?.userId?.name || "—"}
               </td>
 
+              {/* AMOUNT */}
               <td className="p-3 font-semibold text-red-600">
-                ${Number(e.amount).toFixed(2)}
+                ${Number(e.amount || 0).toFixed(2)}
               </td>
 
-              <td className="p-3">{e.category}</td>
+              {/* CATEGORY */}
+              <td className="p-3">{e.category || "—"}</td>
 
+              {/* DATE */}
               <td className="p-3">
-                {new Date(e.date).toLocaleDateString()}
+                {e.date ? new Date(e.date).toLocaleDateString() : "—"}
               </td>
 
+              {/* STATUS */}
               <td className="p-3">
                 <span
                   className={`px-3 py-1 rounded text-white ${
@@ -144,10 +150,11 @@ export default function ExpensesPage() {
                       : "bg-red-600"
                   }`}
                 >
-                  {e.status}
+                  {e.status || "Pending"}
                 </span>
               </td>
 
+              {/* RECEIPT */}
               <td className="p-3">
                 {e.receiptImageURL ? (
                   <a
@@ -241,7 +248,7 @@ export default function ExpensesPage() {
       )}
 
       {/* VEHICLE TOTAL EXPENSE MODAL */}
-      {showVehicleModal && (
+      {showVehicleModal && selectedVehicle && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
           <div className="bg-white p-6 rounded shadow w-96">
             <h2 className="text-xl font-bold mb-4">
