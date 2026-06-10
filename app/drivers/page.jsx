@@ -6,6 +6,8 @@ export const revalidate = 0;
 
 import { useEffect, useState } from "react";
 import { API, getData, postData } from "../../lib/api";
+import { getData, postData, deleteData } from "../../lib/api";
+
 
 export default function DriversPage() {
   const [drivers, setDrivers] = useState([]);
@@ -52,25 +54,18 @@ export default function DriversPage() {
     window.location.href = `/drivers/edit?id=${id}`;
   };
 
-  const deleteDriver = async (id) => {
-    if (!confirm("Are you sure you want to delete this driver?")) return;
+ const deleteDriver = async (id) => {
+  if (!confirm("Are you sure you want to delete this driver?")) return;
 
-    const res = await fetch(`${API}/drivers/${id}`, {
-      method: "DELETE",
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem("token")}`,
-      },
-    });
+  const res = await deleteData(`drivers/${id}`);
 
-    const data = await res.json();
-
-    if (res.ok) {
-      alert("Driver deleted");
-      window.location.reload();
-    } else {
-      alert(data.message || "Delete failed");
-    }
-  };
+  if (res && !res.error) {
+    alert("Driver deleted");
+    window.location.reload();
+  } else {
+    alert("Delete failed");
+  }
+};
 
   // Save new driver
   const saveDriver = async () => {
