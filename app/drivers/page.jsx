@@ -5,7 +5,7 @@ export const fetchCache = "force-no-store";
 export const revalidate = 0;
 
 import { useEffect, useState } from "react";
-import { API, getData, postData } from "../../lib/api";
+//import { API, getData, postData } from "../../lib/api";
 import { getData, postData, deleteData } from "../../lib/api";
 
 
