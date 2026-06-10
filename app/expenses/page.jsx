@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getData, postData } from "../../lib/api";
+import { getData, postData, putData } from "../../lib/api";
+
 
 export default function ExpensesPage() {
   const [expenses, setExpenses] = useState([]);
