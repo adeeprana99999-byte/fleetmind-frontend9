@@ -35,7 +35,9 @@ export default function DriverDetailsPage() {
         <p><strong>Name:</strong> {u.name}</p>
         <p><strong>Phone:</strong> {u.phone}</p>
         <p><strong>License Number:</strong> {driver.licenseNumber}</p>
-        <p><strong>License Expiry:</strong> {driver.licenseExpiry ? new Date(driver.licenseExpiry).toLocaleDateString() : "—"}</p>
+        <p><strong>License Expiry:</strong> 
+          {driver.licenseExpiry ? new Date(driver.licenseExpiry).toLocaleDateString() : "—"}
+        </p>
 
         <p><strong>Assigned Vehicle:</strong> 
           {u.assignedVehicle ? u.assignedVehicle.vehicleNumber : "Unassigned"}
@@ -73,4 +75,3 @@ export default function DriverDetailsPage() {
     </div>
   );
 }
-
