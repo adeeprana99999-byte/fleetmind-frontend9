@@ -103,14 +103,17 @@ export default function DriversPage() {
   }
 
   const res = await postData("drivers", {
-    name,
-    phone,
-    licenseNumber,
-    licenseExpiry,
-    password,
-    licensePhoto: licensePhotoURL,
-    documents: documentURLs,
-  });
+  name,
+  phone,
+  licenseNumber,
+  licenseExpiry,
+  password,
+  address: "",             // ⭐ REQUIRED
+  emergencyContact: "",    // ⭐ REQUIRED
+  licensePhoto: licensePhotoURL,
+  documents: documentURLs,
+});
+
 
   console.log("ADD DRIVER RESPONSE:", res);
 
