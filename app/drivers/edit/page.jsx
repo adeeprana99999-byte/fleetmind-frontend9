@@ -3,6 +3,7 @@ export const dynamic = "force-dynamic";
 export const fetchCache = "force-no-store";
 export const revalidate = 0;
 export const dynamicParams = true;
+
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { getData, putData } from "../../../lib/api";
@@ -35,6 +36,8 @@ export default function EditDriverPage() {
 
   const saveDriver = async () => {
     await putData(`drivers/${id}`, {
+      name,
+      phone,
       licenseNumber,
       licenseExpiry,
       address,
@@ -52,16 +55,19 @@ export default function EditDriverPage() {
       <h1 className="text-2xl font-bold mb-4">Edit Driver</h1>
 
       <div className="space-y-3 max-w-md">
+
         <input
           className="w-full border p-2"
+          placeholder="Driver Name"
           value={name}
-          disabled
+          onChange={(e) => setName(e.target.value)}
         />
 
         <input
           className="w-full border p-2"
+          placeholder="Phone Number"
           value={phone}
-          disabled
+          onChange={(e) => setPhone(e.target.value)}
         />
 
         <input
