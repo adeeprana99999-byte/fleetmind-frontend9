@@ -51,6 +51,18 @@ export default function ExpensesPage() {
     });
   }, []);
 
+  // ⭐ UPDATE STATUS (Approve / Reject)
+  const updateStatus = async (id, status) => {
+    await postData(`expenses/${id}/status`, { status });
+
+    // Update UI instantly
+    setExpenses((prev) =>
+      prev.map((exp) =>
+        exp._id === id ? { ...exp, status } : exp
+      )
+    );
+  };
+
   const saveExpense = async () => {
     if (!vehicleId) {
       alert("Please select a vehicle");
@@ -139,19 +151,39 @@ export default function ExpensesPage() {
                 {e.date ? new Date(e.date).toLocaleDateString() : "—"}
               </td>
 
-              {/* STATUS */}
+              {/* STATUS + APPROVE/REJECT */}
               <td className="p-3">
-                <span
-                  className={`px-3 py-1 rounded text-white ${
-                    e.status === "Pending"
-                      ? "bg-yellow-500"
-                      : e.status === "Approved"
-                      ? "bg-green-600"
-                      : "bg-red-600"
-                  }`}
-                >
-                  {e.status || "Pending"}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span
+                    className={`px-3 py-1 rounded text-white ${
+                      e.status === "Pending"
+                        ? "bg-yellow-500"
+                        : e.status === "Approved"
+                        ? "bg-green-600"
+                        : "bg-red-600"
+                    }`}
+                  >
+                    {e.status}
+                  </span>
+
+                  {e.status === "Pending" && (
+                    <>
+                      <button
+                        onClick={() => updateStatus(e._id, "Approved")}
+                        className="px-2 py-1 bg-green-600 text-white rounded text-sm"
+                      >
+                        Approve
+                      </button>
+
+                      <button
+                        onClick={() => updateStatus(e._id, "Rejected")}
+                        className="px-2 py-1 bg-red-600 text-white rounded text-sm"
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
+                </div>
               </td>
 
               {/* RECEIPT */}
