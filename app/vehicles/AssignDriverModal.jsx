@@ -4,6 +4,8 @@ import { useState } from "react";
 import { putData } from "../../lib/api";
 
 export default function AssignDriverModal({ close, vehicle, drivers }) {
+  console.log("DETAILS DRIVERS:", drivers);
+
   const [driverId, setDriverId] = useState("");
 
   const save = async () => {
