@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { getData, postData, putData } from "../../lib/api";
+import { getData, postData, putData, deleteData } from "../../lib/api";
 
 export default function VehiclesPage() {
   const [vehicles, setVehicles] = useState([]);
@@ -49,6 +49,20 @@ export default function VehiclesPage() {
     window.location.reload();
   };
 
+  // DELETE VEHICLE
+  const deleteVehicle = async (id) => {
+    if (!confirm("Are you sure you want to delete this vehicle?")) return;
+
+    const res = await deleteData(`vehicles/${id}`);
+
+    if (res && !res.error) {
+      alert("Vehicle deleted");
+      window.location.reload();
+    } else {
+      alert(res?.message || "Delete failed");
+    }
+  };
+
   return (
     <div>
       <div className="flex items-center justify-between mb-6">
@@ -80,35 +94,60 @@ export default function VehiclesPage() {
               className="border-b hover:bg-gray-50 transition"
               style={{ cursor: "default" }}
             >
-              <td className="p-3"><span
-  className="text-blue-600 underline cursor-pointer"
-  onClick={() => (window.location.href = `/vehicles/details?id=${v._id}`)}
->
-  {v.vehicleNumber}
-</span></td>
+              <td className="p-3">
+                <span
+                  className="text-blue-600 underline cursor-pointer"
+                  onClick={() =>
+                    (window.location.href = `/vehicles/details?id=${v._id}`)
+                  }
+                >
+                  {v.vehicleNumber}
+                </span>
+              </td>
+
               <td className="p-3">{v.make}</td>
               <td className="p-3">{v.model}</td>
-                   <td className="p-3">
-                   {v.assignedDriver?.name || "Unassigned"}
-                   </td>
 
+              <td className="p-3">
+                {v.assignedDriver?.name || "Unassigned"}
+              </td>
 
-              <td className="p-3" style={{ pointerEvents: "auto" }}>
+              {/* ⭐ ACTIONS COLUMN WITH EDIT + DELETE + ASSIGN */}
+              <td className="p-3 flex gap-3">
+
+                <button
+                  onClick={() =>
+                    (window.location.href = `/vehicles/edit?id=${v._id}`)
+                  }
+                  className="bg-blue-600 text-white px-3 py-1 rounded"
+                >
+                  Edit
+                </button>
+
+                <button
+                  onClick={() => deleteVehicle(v._id)}
+                  className="bg-red-600 text-white px-3 py-1 rounded"
+                >
+                  Delete
+                </button>
+
                 <button
                   onClick={() => {
                     setSelectedVehicle(v);
                     setShowAssign(true);
                   }}
-                  className="text-blue-600 underline cursor-pointer"
+                  className="bg-gray-700 text-white px-3 py-1 rounded"
                 >
                   Assign Driver
                 </button>
+
               </td>
             </tr>
           ))}
         </tbody>
       </table>
 
+      {/* ADD VEHICLE MODAL */}
       {showAdd && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
           <div className="bg-white p-6 rounded shadow w-96">
@@ -151,6 +190,7 @@ export default function VehiclesPage() {
         </div>
       )}
 
+      {/* ASSIGN DRIVER MODAL */}
       {showAssign && (
         <div className="fixed inset-0 bg-black/40 flex items-center justify-center">
           <div className="bg-white p-6 rounded shadow w-96">
@@ -158,18 +198,17 @@ export default function VehiclesPage() {
               Assign Driver to {selectedVehicle.vehicleNumber}
             </h2>
 
-          <select
-  className="w-full border p-2 mb-3"
-  onChange={(e) => setSelectedDriver(e.target.value)}
->
-  <option value="">Select Driver</option>
-  {drivers.map((d) => (
-    <option key={d._id} value={d.userId?._id}>
-      {d.userId?.name}
-    </option>
-  ))}
-</select>
-
+            <select
+              className="w-full border p-2 mb-3"
+              onChange={(e) => setSelectedDriver(e.target.value)}
+            >
+              <option value="">Select Driver</option>
+              {drivers.map((d) => (
+                <option key={d._id} value={d.userId?._id}>
+                  {d.userId?.name}
+                </option>
+              ))}
+            </select>
 
             <div className="flex justify-end gap-2">
               <button
