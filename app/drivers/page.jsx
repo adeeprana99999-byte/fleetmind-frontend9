@@ -24,6 +24,9 @@ export default function DriversPage() {
   const [licenseNumber, setLicenseNumber] = useState("");
   const [licenseExpiry, setLicenseExpiry] = useState("");
   const [password, setPassword] = useState("");
+  const [licensePhoto, setLicensePhoto] = useState(null);
+  const [documents, setDocuments] = useState([]);
+
 
   useEffect(() => {
     getData("drivers")
@@ -66,10 +69,41 @@ export default function DriversPage() {
     alert("Delete failed");
   }
 };
+//upload 
+  async function uploadFile(file) {
+  const form = new FormData();
+  form.append("file", file);
+  form.append("upload_preset", "fleetmind"); // create this in Cloudinary
+
+  const res = await fetch(
+    "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload",
+    { method: "POST", body: form }
+  );
+
+  const data = await res.json();
+  return data.secure_url;
+}
 
   // Save new driver
   const saveDriver = async () => {
   console.log("SAVE DRIVER CLICKED");
+
+ const saveDriver = async () => {
+  console.log("SAVE DRIVER CLICKED");
+
+  let licensePhotoURL = "";
+  let documentURLs = [];
+
+  // Upload license photo
+  if (licensePhoto) {
+    licensePhotoURL = await uploadFile(licensePhoto);
+  }
+
+  // Upload multiple documents
+  for (let doc of documents) {
+    const url = await uploadFile(doc);
+    documentURLs.push(url);
+  }
 
   const res = await postData("drivers", {
     name,
@@ -77,6 +111,8 @@ export default function DriversPage() {
     licenseNumber,
     licenseExpiry,
     password,
+    licensePhoto: licensePhotoURL,
+    documents: documentURLs,
   });
 
   console.log("ADD DRIVER RESPONSE:", res);
@@ -84,15 +120,6 @@ export default function DriversPage() {
   setShowAdd(false);
   window.location.reload();
 };
-
-
-  if (loading) {
-    return (
-      <div className="p-4 bg-white shadow rounded">
-        Loading drivers...
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -243,6 +270,26 @@ export default function DriversPage() {
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
+        <div>
+  <label className="block text-sm font-medium mb-1">License Photo</label>
+  <input
+    type="file"
+    accept="image/*"
+    className="w-full border p-2 rounded"
+    onChange={(e) => setLicensePhoto(e.target.files[0])}
+  />
+</div>
+
+<div>
+  <label className="block text-sm font-medium mb-1">Other Documents</label>
+  <input
+    type="file"
+    multiple
+    accept="image/*,.pdf"
+    className="w-full border p-2 rounded"
+    onChange={(e) => setDocuments([...e.target.files])}
+  />
+</div>
 
       </div>
 
