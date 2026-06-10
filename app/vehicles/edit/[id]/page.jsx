@@ -1,17 +1,11 @@
 "use client";
 
-export const dynamic = "force-dynamic";
-export const fetchCache = "force-no-store";
-export const revalidate = 0;
-export const dynamicParams = true;
-
 import { useEffect, useState } from "react";
-import { useSearchParams } from "next/navigation";
-import { getData, putData } from "../../../lib/api";
+import { useParams } from "next/navigation";
+import { getData, putData } from "../../../../lib/api";
 
 export default function EditVehiclePage() {
-  const params = useSearchParams();
-  const id = params.get("id");
+  const { id } = useParams();
 
   const [vehicle, setVehicle] = useState(null);
 
@@ -110,4 +104,3 @@ export default function EditVehiclePage() {
     </div>
   );
 }
-
