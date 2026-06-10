@@ -88,9 +88,10 @@ export default function VehiclesPage() {
 </span></td>
               <td className="p-3">{v.make}</td>
               <td className="p-3">{v.model}</td>
-              <td className="p-3">
-                {v.assignedDriver?.userId?.name || "Unassigned"}
-              </td>
+                   <td className="p-3">
+                   {v.assignedDriver?.name || "Unassigned"}
+                   </td>
+
 
               <td className="p-3" style={{ pointerEvents: "auto" }}>
                 <button
