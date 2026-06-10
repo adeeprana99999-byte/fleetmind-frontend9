@@ -117,7 +117,8 @@ export default function VehiclesPage() {
 
                 <button
                   onClick={() =>
-                    (window.location.href = `/vehicles/edit?id=${v._id}`)
+                   window.location.href = `/vehicles/edit/${v._id}`
+
                   }
                   className="bg-blue-600 text-white px-3 py-1 rounded"
                 >
