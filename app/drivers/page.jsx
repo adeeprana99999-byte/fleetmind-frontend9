@@ -76,7 +76,7 @@ export default function DriversPage() {
   form.append("upload_preset", "fleetmind"); // create this in Cloudinary
 
   const res = await fetch(
-    "https://api.cloudinary.com/v1_1/YOUR_CLOUD_NAME/upload",
+    "https://api.cloudinary.com/v1_1/dpekjdygn/upload",
     { method: "POST", body: form }
   );
 
