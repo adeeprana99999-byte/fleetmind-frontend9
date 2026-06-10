@@ -95,6 +95,7 @@ export default function DriversPage() {
   if (licensePhoto) {
     licensePhotoURL = await uploadFile(licensePhoto);
   }
+ console.log("LICENSE PHOTO URL BEFORE SEND:", licensePhotoURL);
 
   // Upload multiple documents
   for (let doc of documents) {
