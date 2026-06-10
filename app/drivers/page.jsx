@@ -156,6 +156,13 @@ export default function DriversPage() {
               <th className="p-3 text-left font-semibold">License #</th>
               <th className="p-3 text-left font-semibold">License Expiry</th>
               <th className="p-3 text-left font-semibold">Actions</th>
+              <button
+  onClick={() => window.location.href = `/drivers/details/${d._id}`}
+  className="bg-gray-600 text-white px-3 py-1 rounded"
+>
+  View
+</button>
+
             </tr>
           </thead>
 
