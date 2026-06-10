@@ -1,20 +1,20 @@
 "use client";
 
 import { useState } from "react";
-import { login } from "../../../lib/api";
+import { postData } from "../../../lib/api";
 
 export default function DriverLogin() {
-  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await login(email, password);
+    const res = await postData("drivers/login", { phone, password });
 
-    if (res?.token && res.user.role === "driver") {
-      localStorage.setItem("token", res.token);
-      window.location.href = "/driver/home";
+    if (res?.token) {
+      localStorage.setItem("driverToken", res.token);
+      window.location.href = "/drivers/home";
     } else {
-      alert("Invalid driver credentials");
+      alert("Invalid phone or password");
     }
   };
 
@@ -24,8 +24,8 @@ export default function DriverLogin() {
 
       <input
         className="w-full border p-2 mb-3"
-        placeholder="Email"
-        onChange={(e) => setEmail(e.target.value)}
+        placeholder="Phone Number"
+        onChange={(e) => setPhone(e.target.value)}
       />
 
       <input
