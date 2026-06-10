@@ -64,6 +64,8 @@ export default function VehicleDetailsPage() {
         <p><strong>Model:</strong> {vehicle.model}</p>
         <p><strong>Year:</strong> {vehicle.year}</p>
         <p><strong>Status:</strong> {vehicle.status}</p>
+        <p><strong>Mileage:</strong> {vehicle.mileage || 0}</p>
+
 
         <p className="mt-3">
           <strong>Assigned Driver:</strong>{" "}
