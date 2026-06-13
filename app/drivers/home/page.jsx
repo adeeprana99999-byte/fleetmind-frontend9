@@ -5,10 +5,11 @@ import { getData } from "../../../lib/api";
 
 export default function DriverHome() {
   const [user, setUser] = useState(null);
+useEffect(() => {
+  const token = localStorage.getItem("driverToken");
+  getData("auth/me", token).then((res) => setUser(res.user));
+}, []);
 
-  useEffect(() => {
-    getData("auth/me").then((res) => setUser(res.user));
-  }, []);
 
   return (
     <div>
@@ -25,21 +26,21 @@ export default function DriverHome() {
 
       <div className="grid grid-cols-2 gap-4">
         <a
-          href="/driver/upload"
+          href="/drivers/upload"
           className="bg-blue-600 text-white p-4 rounded text-center"
         >
           Upload Receipt
         </a>
 
         <a
-          href="/driver/receipts"
+          href="/drivers/receipts"
           className="bg-gray-700 text-white p-4 rounded text-center"
         >
           My Receipts
         </a>
 
         <a
-          href="/driver/expenses"
+          href="/drivers/expenses"
           className="bg-red-600 text-white p-4 rounded text-center"
         >
           My Expenses
