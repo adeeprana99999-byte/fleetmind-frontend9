@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { postData } from "../../../lib/api";
+import { login } from "../../../lib/api";   // ⭐ Correct import
 
 export default function DriverLogin() {
   const [phone, setPhone] = useState("");
   const [password, setPassword] = useState("");
 
   const handleLogin = async () => {
-    const res = await postData("drivers/login", { phone, password });
+    const res = await login({ phone, password });   // ⭐ Correct function
 
-    if (res?.token) {
+    if (res?.token && res?.user?.role === "driver") {
       localStorage.setItem("driverToken", res.token);
       window.location.href = "/drivers/home";
     } else {
