@@ -80,6 +80,16 @@ export default function LoginPage() {
         </button>
       </form>
 
+      {/* DRIVER LOGIN LINK */}
+      <p className="text-center text-sm mt-4">
+        <a
+          href="https://fleetmind-frontend9.vercel.app/drivers/login"
+          className="text-blue-600 hover:text-blue-800 underline"
+        >
+          Driver Login
+        </a>
+      </p>
+
       <p className="text-center text-gray-500 text-sm mt-6">
         © {new Date().getFullYear()} FleetMind — All Rights Reserved
       </p>
