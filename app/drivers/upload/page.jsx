@@ -1,21 +1,39 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function UploadReceipt() {
-  const [imageURL, setImageURL] = useState("");
-  const [vehicleId, setVehicleId] = useState("");
+  const [file, setFile] = useState(null);
+  const [user, setUser] = useState(null);
+
+  // Load logged-in driver
+  useEffect(() => {
+    const token = localStorage.getItem("driverToken");
+
+    fetch("http://localhost:5000/api/auth/me", {
+      headers: { Authorization: `Bearer ${token}` }
+    })
+      .then((res) => res.json())
+      .then((data) => setUser(data.user));
+  }, []);
 
   const handleUpload = async () => {
-    const token = localStorage.getItem("token");
+    if (!file) {
+      alert("Please select a receipt image");
+      return;
+    }
+
+    const token = localStorage.getItem("driverToken");
+
+    const formData = new FormData();
+    formData.append("receipt", file); // MUST match multer field name
 
     const res = await fetch("http://localhost:5000/api/receipts/upload", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify({ imageURL, vehicleId }),
+      body: formData
     });
 
     const data = await res.json();
@@ -27,15 +45,11 @@ export default function UploadReceipt() {
       <h2 className="text-xl font-bold mb-4">Upload Receipt</h2>
 
       <input
+        type="file"
+        accept="image/*"
+        capture="environment"   // allows camera on mobile
         className="w-full border p-2 mb-3"
-        placeholder="Image URL"
-        onChange={(e) => setImageURL(e.target.value)}
-      />
-
-      <input
-        className="w-full border p-2 mb-3"
-        placeholder="Vehicle ID"
-        onChange={(e) => setVehicleId(e.target.value)}
+        onChange={(e) => setFile(e.target.files[0])}
       />
 
       <button
